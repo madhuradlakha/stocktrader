@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: StockTrader
+Version: 1.0dev-r0
+Summary: It helps one know the value of their stock
+Home-page: www.madhuradlakha.com
+Author: Madhur Adlakha
+Author-email: madhuradlakha@yahoo.co.in
+License: NA
+Description: This application lets you know the value of your stock in an instant, without having to surf the net and going through links with umpteen ads. It also shows you current situation of the market! It also gives updates as to how much it has increased/decreased in that day. More updates coming soon, will give more features.
+Keywords: stock stocktrader bse nse market bear bearish bull bullish profit loss share shares stocks price value
+Platform: UNKNOWN

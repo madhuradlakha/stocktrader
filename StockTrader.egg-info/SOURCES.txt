@@ -1,0 +1,14 @@
+setup.cfg
+setup.py
+StockTrader.egg-info/PKG-INFO
+StockTrader.egg-info/SOURCES.txt
+StockTrader.egg-info/dependency_links.txt
+StockTrader.egg-info/entry_points.txt
+StockTrader.egg-info/top_level.txt
+StockTrader.egg-info/zip-safe
+stocktrader/__init__.py
+stocktrader/items.py
+stocktrader/pipelines.py
+stocktrader/settings.py
+stocktrader/spiders/__init__.py
+stocktrader/spiders/stock.py
