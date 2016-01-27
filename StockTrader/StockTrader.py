@@ -1,11 +1,13 @@
+#!/usr/bin/env python 
 import urllib
 import re
 from lxml import html
 import requests
-import scrapy
 from termcolor import colored, cprint
 #import stockquote
 
+
+    
 def ltp(symbol,exch):
     base_url = 'https://in.finance.yahoo.com/q?s=' + symbol +'.'+ exch
     content = urllib.urlopen(base_url).read()
@@ -61,7 +63,44 @@ def date(symbol,exch):
 		quote = 'Time updated: ' + m.group(1)
 	else:
 		quote = 'No quote available for: ' + symbol
-	print quote+'\n'
+	print quote
+	return
+	
+def time(symbol,exch):
+	base_url = 'https://in.finance.yahoo.com/q?s=' + symbol +'.'+ exch
+	content = urllib.urlopen(base_url).read()
+	m = re.search('id="yfs_t.*?"><.*?".*?">(.*?)<', content)
+	if m:
+		quote = 'Time Updated: ' + m.group(1)+"\n"
+	else:
+		quote = 'No quote available for: ' + symbol
+	print quote
+	return
+	
+def bse(symbol,exch):
+	base_url = 'https://in.finance.yahoo.com/'
+	content = urllib.urlopen(base_url).read()
+	m1 = re.search('id="yfs_l84..b.*>(.*?)<', content)
+	m2 = re.search('class="yfi-price-change.*">(.*?)<', content)
+	m3 = re.search('b class="yfi-price-change.*">(.*?)<', content)
+	if m1 and m2 and m3:
+		quote = 'BSE: ' + m1.group(1)+'   '+m2.group(1)+'   '+m3.group(1)
+	else:
+		quote = 'No quote available for: ' + symbol
+	print quote
+	return
+
+def nse(symbol,exch):
+	base_url = 'https://in.finance.yahoo.com/'
+	content = urllib.urlopen(base_url).read()
+	m1 = re.search('id="yfs_l84..n.*>(.*?)<', content)
+	m2 = re.search('id="yfs_c63_.nsei" class="c63">\s                                   <span class="yfi-price-change.*">(.*?)<',content)
+	m3 = re.search('<span id="yfs_pp0_.nsei" class="pp0">\s\s\s\s\s\s\s                           \s\s\s<b class="yfi-price-change-green">(.*?)<',content)
+	if m1 and m2 and m3:
+		quote = 'NSE: ' + m1.group(1)+'    '+m2.group(1)+'    '+m3.group(1)+"\n"
+	else:
+		quote = 'No quote available for: ' + symbol
+	print quote
 	return
 	
 def run(nam,exch):
@@ -69,19 +108,23 @@ def run(nam,exch):
 	color = checkColor(nam,exch)
 	changePrice(nam,exch,color)
 	changePerc(nam,exch,color) 
-	date(nam,exch) 
+	time(nam,exch) 
+	bse(nam,exch)
+	nse(nam,exch)
+	return
 
-ans=raw_input('Want to enter more?\n')
+print "\n\n\t\t\t\tWelcome!\n\n"
+ans=raw_input('Want to enter data? (Y/N)\n')
 while ans=='y':
-	exch = raw_input("\nEnter the exchange: ")
+	exch = raw_input("\nEnter the exchange (BSE/NSE): ")
 	nam = raw_input("\nEnter the name of the company: ")
 	if exch =='nse' or exch=='ns' or exch=='n':
 		run(nam,'NS')
 	else:
 		run(nam,'BO')
-	ans=raw_input('Want to enter more?\n')
+	ans=raw_input('Want to enter more? (Y/N)\n')
 	
-print "\nThank you!"
+print "\n\n\t\t\t\tThank you!\n\n"
 
 
 #class="ch bld.*?><.*>(.*?)<

@@ -1,1 +1,1 @@
-stocktrader
+StockTrader
